@@ -2,7 +2,7 @@ import time
 import logging
 import re
 
-from hms_agenda.agenda import Agenda
+from agenda import Agenda
 
 
 DB_PATH = '/home/oneshot/agenda.sqlite.backup'

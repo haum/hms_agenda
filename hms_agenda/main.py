@@ -5,7 +5,7 @@ import coloredlogs
 from hms_base.client import Client
 from hms_base.decorators import topic
 
-from hms_agenda.irc import AgendaBot
+from irc import AgendaBot
 
 
 def get_logger():
