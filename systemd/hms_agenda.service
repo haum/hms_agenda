@@ -5,7 +5,7 @@ Requires=multi-user.target
 
 [Service]
 Type=simple
-User=oneshot
+User=hms_agenda
 ExecStart=/home/hms_agenda/hms_agenda/systemd/run.sh
 Restart=on-failure
 RestartSec=360
