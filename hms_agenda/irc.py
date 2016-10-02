@@ -5,7 +5,7 @@ import re
 from agenda import Agenda
 
 
-DB_PATH = '/home/oneshot/agenda.sqlite.backup'
+DB_PATH = '/home/oneshot/agenda.sqlite'
 
 COMMAND_ADD_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})\s"([^"]+)"\s"([^"]+)"(.+)$')
 COMMAND_ADDSCEANCE_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})$')
