@@ -37,9 +37,10 @@ class AgendaBot:
 
         if command == 'remove':
             self.remove_event(command_arg)
-
         elif command == 'add':
             self.add_event(command_arg)
+        elif command == 'add_sceance':
+            self.add_sceance(command_arg)
 
 
     def show_events(self, show_all=False):
@@ -70,3 +71,14 @@ class AgendaBot:
 
         self.agenda.add_event(*result.groups())
         self.irc_debug('événement ajouté !')
+
+    def add_sceance(self, arg):
+        result = COMMAND_ADDSCEANCE_REGEX.match(arg)
+
+        if not result:
+            get_logger().error('error while parsing args for add_sceance')
+            self.irc_debug('mauvais format')
+            return
+
+        self.agenda.add_sceance(*result.groups())
+        self.irc_debug('séance ajoutée !')
