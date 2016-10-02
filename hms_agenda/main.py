@@ -41,7 +41,7 @@ def main():
         def do_work(client, topic, message):
             bot.parse_command(client, topic, message)
 
-        if 'command' in message and message['command'] == 'agen':
+        if 'command' in message and message['command'] == 'agenda':
             do_work(client, topic, message)
 
     rabbit.listeners.append(callback)
