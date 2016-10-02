@@ -1,0 +1,14 @@
+[Unit]
+Description=HAUM's agenda microservice
+After=mutli-user.target
+Requires=multi-user.target
+
+[Service]
+Type=simple
+User=oneshot
+ExecStart=/home/hms_agenda/hms_agenda/systemd/run.sh
+Restart=on-failure
+RestartSec=360
+
+[Install]
+WantedBy=multi-user.target
