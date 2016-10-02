@@ -58,7 +58,8 @@ class AgendaBot:
             self.irc_debug('événement correctement supprimé')
         except (TypeError, ValueError):
             get_logger().error('error while parsing args for remove')
-            self.irc_debug('il me faut un nombre en paramètre')
+            self.irc_debug('Mauvais format')
+            self.irc_debug('Pour supprimer un élément, : !agenda remove id')
 
     def add_event(self, arg):
         """Add an event to the database."""
@@ -66,19 +67,21 @@ class AgendaBot:
 
         if not result:
             get_logger().error('error while parsing args for add')
-            self.irc_debug('mauvais format')
+            self.irc_debug('Mauvais format')
+            self.irc_debug('Pour ajouter un élément, : !agenda add JJ/MM/YYYY (h)h:mm "Lieu" "Titre" Description')
             return
 
         self.agenda.add_event(*result.groups())
-        self.irc_debug('événement ajouté !')
+        self.irc_debug('Événement ajouté !')
 
     def add_sceance(self, arg):
         result = COMMAND_ADDSCEANCE_REGEX.match(arg)
 
         if not result:
             get_logger().error('error while parsing args for add_sceance')
-            self.irc_debug('mauvais format')
+            self.irc_debug('Mauvais format')
+            self.irc_debug('Pour ajouter un élément, : !agenda add_seance JJ/MM/YYYY (h)h:mm')
             return
 
         self.agenda.add_sceance(*result.groups())
-        self.irc_debug('séance ajoutée !')
+        self.irc_debug('Séance ajoutée !')
