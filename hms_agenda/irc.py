@@ -9,7 +9,7 @@ DB_PATH = '/home/microjoe/agenda.sqlite.backup'
 
 COMMAND_ADD_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})\s"([^"]+)"\s"([^"]+)"(.+)$')
 COMMAND_ADDSCEANCE_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})$')
-
+COMMAND_MODIFSCEANCE_REGEX = re.compile(r'(\d+)\s(titre|lieu|date|status)\s(.+)$')
 
 def get_logger():
     return logging.getLogger(__name__)
@@ -41,6 +41,8 @@ class AgendaBot:
             self.add_event(command_arg)
         elif command == 'add_sceance':
             self.add_sceance(command_arg)
+        elif command == 'modify':
+            self.modify_sceance(command_arg)
 
 
     def show_events(self, show_all=False):
@@ -85,3 +87,15 @@ class AgendaBot:
 
         self.agenda.add_sceance(*result.groups())
         self.irc_debug('Séance ajoutée !')
+
+    def modify_sceance(self, arg):
+        result = COMMAND_MODIFSCEANCE_REGEX.match(arg)
+
+        if not result:
+            get_logger().error('error while parsing args for modify_sceance')
+            self.irc_debug('Mauvais format')
+            self.irc_debug('Pour modifier un élément, : !agenda modify id [titre|lieu|date|status] nouvelle valeur')
+            return
+
+        self.agenda.modify_sceance(*result.groups())
+        self.irc_debug('Modification effectuée !')

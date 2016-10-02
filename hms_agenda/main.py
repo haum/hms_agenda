@@ -26,7 +26,6 @@ def main():
     def voice_required(f):
         """Decorator that checks if the sender is voiced."""
         def wrapper(*args):
-            print(args)
             if 'is_voiced' in args[2] and args[2]['is_voiced']:
                 return f(*args)
             else:

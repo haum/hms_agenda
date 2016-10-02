@@ -60,3 +60,7 @@ class Agenda:
 
     def add_sceance(self, date):
         self.add_event(date, 'Local du HAUM', 'Session bidouille', random.choice(SCEANCE_MESSAGES))
+
+    def modify_sceance(self, id, field, new_value):
+        with DBGuard(self.db_path) as cursor:
+            cursor.execute('update agenda set {}=? where rowid=?'.format(field), (new_value, id))
