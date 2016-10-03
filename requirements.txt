@@ -1,4 +1,0 @@
-pika
-hms_base>=2,<3
-coloredlogs
-

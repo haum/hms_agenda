@@ -5,7 +5,7 @@ import coloredlogs
 from hms_base.client import Client
 from hms_base.decorators import topic
 
-from irc import AgendaBot
+from hms_agenda.irc import AgendaBot
 
 
 def get_logger():
@@ -47,8 +47,12 @@ def main():
     rabbit.listeners.append(callback)
 
     # Infinite listen loop
-    rabbit.start_consuming()
-    rabbit.disconnect()
+    try:
+        rabbit.start_consuming()
+    except KeyboardInterrupt:
+        get_logger().critical('Got a keyboard interrupt')
+    finally:
+        rabbit.disconnect()
 
 
 if __name__ == '__main__':
