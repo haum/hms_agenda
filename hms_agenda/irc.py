@@ -43,6 +43,8 @@ class AgendaBot:
             self.add_sceance(command_arg)
         elif command == 'modify':
             self.modify_sceance(command_arg)
+        elif command == 'help':
+            self.help()
 
 
     def show_events(self, show_all=False):
@@ -60,8 +62,8 @@ class AgendaBot:
             self.irc_debug('événement correctement supprimé')
         except (TypeError, ValueError):
             get_logger().error('error while parsing args for remove')
-            self.irc_debug('Mauvais format')
-            self.irc_debug('Pour supprimer un élément, : !agenda remove id')
+            self.bad_format()
+            self.help_remove()
 
     def add_event(self, arg):
         """Add an event to the database."""
@@ -69,8 +71,8 @@ class AgendaBot:
 
         if not result:
             get_logger().error('error while parsing args for add')
-            self.irc_debug('Mauvais format')
-            self.irc_debug('Pour ajouter un élément, : !agenda add JJ/MM/YYYY (h)h:mm "Lieu" "Titre" Description')
+            self.bad_format()
+            self.help_add()
             return
 
         self.agenda.add_event(*result.groups())
@@ -81,8 +83,8 @@ class AgendaBot:
 
         if not result:
             get_logger().error('error while parsing args for add_sceance')
-            self.irc_debug('Mauvais format')
-            self.irc_debug('Pour ajouter un élément, : !agenda add_seance JJ/MM/YYYY (h)h:mm')
+            self.bad_format()
+            self.help_add_sceance()
             return
 
         self.agenda.add_sceance(*result.groups())
@@ -93,9 +95,35 @@ class AgendaBot:
 
         if not result:
             get_logger().error('error while parsing args for modify_sceance')
-            self.irc_debug('Mauvais format')
-            self.irc_debug('Pour modifier un élément, : !agenda modify id [titre|lieu|date|status] nouvelle valeur')
+            self.bad_format()
+            self.help_modify()
             return
 
         self.agenda.modify_sceance(*result.groups())
         self.irc_debug('Modification effectuée !')
+
+    # Help methods
+
+    def bad_format(self):
+        self.irc_debug('Mauvais format')
+
+    def help_remove(self):
+        self.irc_debug('Pour supprimer un élément, : !agenda remove id')
+
+    def help_add(self):
+        self.irc_debug(
+            'Pour ajouter un élément, : !agenda add JJ/MM/YYYY (h)h:mm "Lieu" "Titre" Description')
+
+    def help_add_sceance(self):
+        self.irc_debug(
+            'Pour ajouter un élément, : !agenda add_seance JJ/MM/YYYY (h)h:mm')
+
+    def help_modify(self):
+        self.irc_debug(
+            'Pour modifier un élément, : !agenda modify id [titre|lieu|date|status] nouvelle valeur')
+
+    def help(self):
+        self.help_add()
+        self.help_add_sceance()
+        self.help_modify()
+        self.help_remove()
