@@ -8,7 +8,7 @@ from hms_agenda.agenda import Agenda
 DB_PATH = '/home/oneshot/agenda.sqlite'
 
 COMMAND_ADD_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})\s"([^"]+)"\s"([^"]+)"(.+)$')
-COMMAND_ADDSCEANCE_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})$')
+COMMAND_ADDSEANCE_REGEX = re.compile(r'(\d{1,2}\/\d{2}\/\d{4}\s\d{1,2}:\d{2})$')
 COMMAND_MODIFSCEANCE_REGEX = re.compile(r'(\d+)\s(titre|lieu|date|status)\s(.+)$')
 
 def get_logger():
@@ -40,7 +40,7 @@ class AgendaBot:
         elif command == 'add':
             self.add_event(command_arg)
         elif command == 'add_seance':
-            self.add_sceance(command_arg)
+            self.add_seance(command_arg)
         elif command == 'modify':
             self.modify_sceance(command_arg)
         elif command == 'help':
@@ -49,17 +49,21 @@ class AgendaBot:
 
     def show_events(self, show_all=False):
         """Show the events on the IRC chan."""
-        for event in self.agenda.get_events(show_all):
-            # Display the event on IRC in human-readable format
-            self.irc_debug('#{0}: {1} ; {2} le {4} {5}'.format(*event))
-            # Sleep between each line in order to avoid throttle
-            time.sleep(1)
+        events = self.agenda.get_events(show_all)
+        if events:
+            for event in events:
+                # Display the event on IRC in human-readable format
+                self.irc_debug('#{0}: {1} ; {2} le {4} {5}'.format(*event))
+                # Sleep between each line in order to avoid throttle
+                time.sleep(1)
+        else:
+            self.irc_debug('Aucun événement prochainement')
 
     def remove_event(self, arg):
         """Remove one event with its ID in the database."""
         try:
             self.agenda.remove_event(int(arg))
-            self.irc_debug('événement correctement supprimé')
+            self.irc_debug('Événement correctement supprimé')
         except (TypeError, ValueError):
             get_logger().error('error while parsing args for remove')
             self.bad_format()
@@ -78,13 +82,13 @@ class AgendaBot:
         self.agenda.add_event(*result.groups())
         self.irc_debug('Événement ajouté !')
 
-    def add_sceance(self, arg):
-        result = COMMAND_ADDSCEANCE_REGEX.match(arg)
+    def add_seance(self, arg):
+        result = COMMAND_ADDSEANCE_REGEX.match(arg)
 
         if not result:
-            get_logger().error('error while parsing args for add_sceance')
+            get_logger().error('error while parsing args for add_seance')
             self.bad_format()
-            self.help_add_sceance()
+            self.help_add_seance()
             return
 
         self.agenda.add_sceance(*result.groups())
@@ -114,7 +118,7 @@ class AgendaBot:
         self.irc_debug(
             'Pour ajouter un élément, : !agenda add JJ/MM/YYYY (h)h:mm "Lieu" "Titre" Description')
 
-    def help_add_sceance(self):
+    def help_add_seance(self):
         self.irc_debug(
             'Pour ajouter un élément, : !agenda add_seance JJ/MM/YYYY (h)h:mm')
 
@@ -124,6 +128,6 @@ class AgendaBot:
 
     def help(self):
         self.help_add()
-        self.help_add_sceance()
+        self.help_add_seance()
         self.help_modify()
         self.help_remove()
