@@ -39,7 +39,7 @@ class AgendaBot:
             self.remove_event(command_arg)
         elif command == 'add':
             self.add_event(command_arg)
-        elif command == 'add_sceance':
+        elif command == 'add_seance':
             self.add_sceance(command_arg)
         elif command == 'modify':
             self.modify_sceance(command_arg)
