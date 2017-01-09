@@ -3,13 +3,7 @@ import sqlite3
 
 import random
 
-SCEANCE_MESSAGES = (
-    "Si pour 2017 t'as des projets, viens nous voir et nous en parler !",
-    "Si tu aimes bricoler, viens t'amuser avec nous !",
-    "Tant que tu n'as pas essayé tu peux encore te passer de nous... VIENS !",
-    "Si hacker est pour toi plus qu'un truc qu'on entend aux infos, passe nous voir !",
-    "Envie de plancher avec nous à d'autres expériences insolites ?",
-)
+from hms_agenda import strings
 
 def get_logger():
     return logging.getLogger(__name__)
@@ -59,7 +53,10 @@ class Agenda:
                        (titre, lieu, desc, date))
 
     def add_sceance(self, date):
-        self.add_event(date, 'Local du HAUM', 'Session bidouille', random.choice(SCEANCE_MESSAGES))
+        self.add_event(
+            date,
+            strings.SCEANCE_LOCATION, strings.SCEANCE_NAME,
+            random.choice(strings.SCEANCE_MESSAGES))
 
     def modify_sceance(self, id, field, new_value):
         with DBGuard(self.db_path) as cursor:
