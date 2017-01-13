@@ -17,8 +17,8 @@ class AgendaParser:
         args = message['arguments'] if 'arguments' in message else None
 
         if command == 'list':
-            show_all = False
-            events = list(self.agenda.get_events(show_all))
+            show_all = 'all' in args if args else False
+            events = list(self.agenda.get_events(all=show_all))
             self.answer({'list': events}, message)
 
         if command == 'remove':
