@@ -16,23 +16,28 @@ class AgendaParser:
         command = message['command']
         args = message['arguments'] if 'arguments' in message else None
 
+        # Handle listing of events
         if command == 'list':
             show_all = 'all' in args if args else False
             events = list(self.agenda.get_events(all=show_all))
             self.answer({'list': events}, message)
+            return
 
-        if command == 'remove':
-            self.agenda.remove_event(**args)
+        # Handle other commands using a look-up table
+        commands_lut = {
+            'remove': self.agenda.remove_event,
+            'add': self.agenda.add_event,
+            'add_seance': self.agenda.add_sceance,
+            'modify': self.agenda.modify_sceance
+        }
+
+        # Try to find command and call it with provided arguments
+        if command in commands_lut:
+            # Execute corresponding command
+            commands_lut[command](**args)
+            # Notify that the command was executed
             self.answer({command: True}, message)
-        elif command == 'add':
-            self.agenda.add_event(**args)
-            self.answer({command: True}, message)
-        elif command == 'add_seance':
-            self.agenda.add_sceance(**args)
-            self.answer({command: True}, message)
-        elif command == 'modify':
-            self.agenda.modify_sceance(**args)
-            self.answer({command: True}, message)
+
 
     def answer(self, content, orig):
         self.rabbit.publish('agenda.answer', {
