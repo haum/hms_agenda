@@ -10,7 +10,7 @@ class TestParser(unittest.TestCase):
         self.parser.agenda = Mock()
         self.parser.agenda.add_event = Mock()
         self.parser.agenda.add_sceance = Mock()
-        self.parser.agenda.modify_sceance = Mock()
+        self.parser.agenda.modify_event = Mock()
         self.parser.agenda.remove_event = Mock()
         self.parser.agenda.get_events = Mock(return_value=[])
         self.parser.answer = Mock()
@@ -66,7 +66,7 @@ class TestParser(unittest.TestCase):
             'field': 'titre',
             'new_value': 'Un super nouveau titre'
         })
-        self.parser.agenda.modify_sceance.assert_called_once_with(
+        self.parser.agenda.modify_event.assert_called_once_with(
             id=42,
             field='titre',
             new_value='Un super nouveau titre'
