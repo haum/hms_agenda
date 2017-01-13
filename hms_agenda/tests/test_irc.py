@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import Mock
 
-from hms_agenda.irc import AgendaBot
+from hms_agenda.parser import AgendaParser
 
 
 class TestIRCCommands(unittest.TestCase):
     def setUp(self):
-        self.bot = AgendaBot(None)
+        self.bot = AgendaParser(None)
         self.bot.show_events = Mock()
 
     def parse_command(self, command):

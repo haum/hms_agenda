@@ -47,10 +47,10 @@ class Agenda:
         with DBGuard(self.db_path) as cursor:
             cursor.execute('update agenda set status=0 where rowid=?', (id,))
 
-    def add_event(self, date, lieu, titre, desc):
+    def add_event(self, date, location, title, desc):
         with DBGuard(self.db_path) as cursor:
             cursor.execute('insert into agenda (titre,lieu,description,date,status) values (?,?,?,?,1)',
-                       (titre, lieu, desc, date))
+                           (title, location, desc, date))
 
     def add_sceance(self, date):
         self.add_event(
