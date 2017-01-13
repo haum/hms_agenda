@@ -36,8 +36,23 @@ class TestParser(unittest.TestCase):
             'date': '10/11/2017 17:45',
             'location': 'Local du HAUM',
             'title': 'Test débile',
-            'desc': 'Un super test complètement débile'})
-        self.parser.agenda.add_event.assert_called_once()
+            'desc': 'Un super test complètement débile'
+        })
+        self.parser.agenda.add_event.assert_called_once_with(
+            date='10/11/2017 17:45',
+            location='Local du HAUM',
+            title='Test débile',
+            desc='Un super test complètement débile'
+        )
+        self.parser.answer.assert_called_once()
+
+    def test_add_seance(self):
+        self.parse_command('add_seance', {
+            'date': '10/11/2017 17:45'
+        })
+        self.parser.agenda.add_sceance.assert_called_once_with(
+            date='10/11/2017 17:45'
+        )
         self.parser.answer.assert_called_once()
 
     def test_remove_event(self):
@@ -49,6 +64,11 @@ class TestParser(unittest.TestCase):
         self.parse_command('modify', {
             'id': 42,
             'field': 'titre',
-            'new_value': 'Un super nouveau titre'})
-        self.parser.agenda.modify_sceance.assert_called_once()
+            'new_value': 'Un super nouveau titre'
+        })
+        self.parser.agenda.modify_sceance.assert_called_once_with(
+            id=42,
+            field='titre',
+            new_value='Un super nouveau titre'
+        )
         self.parser.answer.assert_called_once()
