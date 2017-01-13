@@ -1,9 +1,7 @@
 import logging
 
 from hms_agenda.agenda import Agenda
-
-
-DB_PATH = '/home/oneshot/agenda.sqlite'
+from hms_agenda import settings
 
 
 def get_logger():
@@ -12,7 +10,7 @@ def get_logger():
 class AgendaParser:
     def __init__(self, rabbit):
         self.rabbit = rabbit
-        self.agenda = Agenda(DB_PATH)
+        self.agenda = Agenda(settings.DB_PATH)
 
     def parse_command(self, client, topic, message):
         command = message['command']
@@ -20,8 +18,9 @@ class AgendaParser:
 
         if command == 'list':
             show_all = False
-            events = self.agenda.get_events(show_all)
+            events = list(self.agenda.get_events(show_all))
             self.answer({'list': events}, message)
+
         if command == 'remove':
             self.agenda.remove_event(**args)
             self.answer({command: True}, message)
