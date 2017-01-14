@@ -1,6 +1,12 @@
 Agenda microservice
 ###################
 
+.. image:: https://travis-ci.org/haum/hms_agenda.svg?branch=master
+    :target: https://travis-ci.org/haum/hms_agenda
+
+.. image:: https://coveralls.io/repos/github/haum/hms_agenda/badge.svg?branch=master
+    :target: https://coveralls.io/github/haum/hms_agenda?branch=master
+
 This microservice is dedicated for the handling of the agenda of the HAUM.
 
 The backend of this microservice is a SQLite database, but you should
