@@ -3,6 +3,6 @@
 DB_PATH = '/home/microjoe/agenda.sqlite'
 
 try:
-    from hms_irc.settings_prod import *
+    from hms_agenda.settings_prod import *
 except ImportError:
     pass
