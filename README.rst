@@ -10,11 +10,11 @@ Agenda microservice
 This microservice is dedicated for the handling of the agenda of the HAUM.
 
 The backend of this microservice is a SQLite database, but you should
-communicate with this service if you want to interract with the agenda
+communicate with this service if you want to interact with the agenda
 instead of using the database directly.
 
 Using
------
+=====
 
 Create a Python 3 virtualenv and install software::
 
@@ -26,8 +26,59 @@ Then start the bot inside the virtual env::
 
     (venv) $ hms_agenda
 
+Accepted messages
+=================
+
+Topic 'agenda.query'.
+
+Adding an event
+---------------
+
+::
+
+    'command': 'add',
+    'arguments': {
+        'date': '10/11/2017 17:45',
+        'location': 'Local du HAUM',
+        'title': 'Test débile',
+        'desc': 'Un super test complètement débile'
+    }
+
+Adding a seance
+---------------
+
+::
+
+    'command': 'add_seance',
+    'arguments': {
+        'date': '10/11/2017 17:45'
+    }
+
+
+Removing an event
+-----------------
+
+::
+
+    'command': 'remove',
+    'arguments': {
+        'id': 42
+    }
+
+Modifying an event
+------------------
+
+::
+
+    'command': 'modify',
+    'arguments': {
+        'id': 42,
+        'field': 'titre',
+        'new_value': 'Un super nouveau titre'
+    }
+
 License
--------
+=======
 
 This project is brought to you under MIT license. For further information,
 please read the provided ``LICENSE.txt`` file.
