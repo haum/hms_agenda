@@ -24,12 +24,12 @@ class TestParser(unittest.TestCase):
     def test_list_last(self):
         self.parse_command('list')
         self.parser.agenda.get_events.assert_called_once_with(all=False)
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
 
     def test_list_all(self):
         self.parse_command('list', {'all': True})
         self.parser.agenda.get_events.assert_called_once_with(all=True)
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
 
     def test_add_event(self):
         self.parse_command('add', {
@@ -53,12 +53,12 @@ class TestParser(unittest.TestCase):
         self.parser.agenda.add_sceance.assert_called_once_with(
             date='10/11/2017 17:45'
         )
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
 
     def test_remove_event(self):
         self.parse_command('remove', {'id': 42})
         self.parser.agenda.remove_event.assert_called_once_with(id=42)
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
 
     def test_modify_event(self):
         self.parse_command('modify', {
@@ -71,4 +71,4 @@ class TestParser(unittest.TestCase):
             field='titre',
             new_value='Un super nouveau titre'
         )
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
