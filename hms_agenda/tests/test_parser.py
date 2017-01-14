@@ -44,7 +44,7 @@ class TestParser(unittest.TestCase):
             title='Test débile',
             desc='Un super test complètement débile'
         )
-        self.parser.answer.assert_called_once()
+        self.assertTrue(self.parser.answer.called)
 
     def test_add_seance(self):
         self.parse_command('add_seance', {
