@@ -85,6 +85,15 @@ Modifying an event
         }
     }
 
+Fields names allowed for modification are the following (in French language for
+historical reasons):
+
+- ``titre``
+- ``lieu``
+- ``description``
+- ``date``
+- ``status``
+
 License
 =======
 
