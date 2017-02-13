@@ -43,7 +43,7 @@ class AgendaDB:
 
     def get_events(self, all=False):
         """A generator that will yield events registered in database."""
-        query = 'select rowid,* from agenda where status=1 order by rowid asc'
+        query = 'SELECT rowid,* FROM agenda WHERE status=1 ORDER BY rowid ASC'
 
         # Limit size of the result if required
         if not all:
@@ -57,14 +57,14 @@ class AgendaDB:
     def remove_event(self, id):
         """Removes an event from the database."""
         with DBGuard(self.db_path) as cursor:
-            cursor.execute('update agenda set status=0 where rowid=?', (id,))
+            cursor.execute('UPDATE agenda SET status=0 WHERE rowid=?', (id,))
 
     def add_event(self, date, location, title, desc):
         """Adds an event to the database."""
         with DBGuard(self.db_path) as cursor:
             cursor.execute(
-                'insert into agenda (titre,lieu,description,date,status) '
-                'values (?,?,?,?,1)',
+                'INSERT INTO agenda (titre,lieu,description,date,status) '
+                'VALUES (?,?,?,?,1)',
                 (title, location, desc, date))
 
     def add_sceance(self, date):
@@ -84,5 +84,5 @@ class AgendaDB:
         """Modifies a specific field of an existing event."""
         with DBGuard(self.db_path) as cursor:
             cursor.execute(
-                'update agenda set {}=? where rowid=?'
+                'UPDATE agenda SET {}=? WHERE rowid=?'
                 .format(field), (new_value, id))
