@@ -18,6 +18,8 @@ class AgendaParser:
 
     def parse_command(self, client, topic, message):
         """Parse a command, execute it and send an answer."""
+
+        # Retrieve command and its arguments
         command = message['command']
         args = message['arguments'] if 'arguments' in message else None
 
