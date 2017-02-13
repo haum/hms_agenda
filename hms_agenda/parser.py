@@ -34,7 +34,7 @@ class AgendaParser:
         commands_lut = {
             'remove': self.agenda.remove_event,
             'add': self.agenda.add_event,
-            'add_seance': self.agenda.add_sceance,
+            'add_seance': self.agenda.add_seance,
             'modify': self.agenda.modify_event
         }
 

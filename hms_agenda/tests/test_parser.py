@@ -9,7 +9,7 @@ class TestParser(unittest.TestCase):
         self.parser = AgendaParser(None)
         self.parser.agenda = Mock()
         self.parser.agenda.add_event = Mock()
-        self.parser.agenda.add_sceance = Mock()
+        self.parser.agenda.add_seance = Mock()
         self.parser.agenda.modify_event = Mock()
         self.parser.agenda.remove_event = Mock()
         self.parser.agenda.get_events = Mock(return_value=[])
@@ -50,7 +50,7 @@ class TestParser(unittest.TestCase):
         self.parse_command('add_seance', {
             'date': '10/11/2017 17:45'
         })
-        self.parser.agenda.add_sceance.assert_called_once_with(
+        self.parser.agenda.add_seance.assert_called_once_with(
             date='10/11/2017 17:45'
         )
         self.assertTrue(self.parser.answer.called)

@@ -67,7 +67,7 @@ class AgendaDB:
                 'VALUES (?,?,?,?,1)',
                 (title, location, desc, date))
 
-    def add_sceance(self, date):
+    def add_seance(self, date):
         """Adds a seance to the database.
 
         A seance is a recurring type of event that we can automatically fill
@@ -77,8 +77,8 @@ class AgendaDB:
         """
         self.add_event(
             date,
-            strings.SCEANCE_LOCATION, strings.SCEANCE_NAME,
-            random.choice(strings.SCEANCE_MESSAGES))
+            strings.SEANCE_LOCATION, strings.SEANCE_NAME,
+            random.choice(strings.SEANCE_MESSAGES))
 
     def modify_event(self, id, field, new_value):
         """Modifies a specific field of an existing event."""

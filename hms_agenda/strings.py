@@ -1,6 +1,6 @@
 
 
-SCEANCE_MESSAGES = (
+SEANCE_MESSAGES = (
     "Si pour 2017 t'as des projets, viens nous voir et nous en parler !",
     "Si tu aimes bricoler, viens t'amuser avec nous !",
     "Tant que tu n'as pas essayé tu peux encore te passer de nous... VIENS !",
@@ -8,5 +8,5 @@ SCEANCE_MESSAGES = (
     "Envie de plancher avec nous à d'autres expériences insolites ?",
 )
 
-SCEANCE_LOCATION = "Local du HAUM"
-SCEANCE_NAME = "Session bidouille"
+SEANCE_LOCATION = "Local du HAUM"
+SEANCE_NAME = "Session bidouille"
