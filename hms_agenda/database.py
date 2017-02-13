@@ -5,8 +5,10 @@ import random
 
 from hms_agenda import strings
 
+
 def get_logger():
     return logging.getLogger(__name__)
+
 
 class DBGuard:
 
