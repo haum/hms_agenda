@@ -29,19 +29,21 @@ Then start the bot inside the virtual env::
 Accepted messages
 =================
 
-Topic 'agenda.query'.
+Topic ``agenda.query``.
 
 Adding an event
 ---------------
 
-::
+.. code:: python
 
-    'command': 'add',
-    'arguments': {
-        'date': '10/11/2017 17:45',
-        'location': 'Local du HAUM',
-        'title': 'Test débile',
-        'desc': 'Un super test complètement débile'
+    command = {
+        'command': 'add',
+        'arguments': {
+            'date': '10/11/2017 17:45',
+            'location': 'Local du HAUM',
+            'title': 'Test débile',
+            'desc': 'Un super test complètement débile'
+        }
     }
 
 Adding a seance
