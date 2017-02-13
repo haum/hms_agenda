@@ -10,7 +10,8 @@ def get_logger():
 
 class DBGuard:
 
-    """A with-block that will open DB, and commit changes and close DB before exiting."""
+    """A with-block that will open DB, commit changes and close DB before
+    exiting."""
 
     def __init__(self, db_path):
         """Default constructor with a path to the sqlite database."""
@@ -61,14 +62,17 @@ class AgendaDB:
     def add_event(self, date, location, title, desc):
         """Adds an event to the database."""
         with DBGuard(self.db_path) as cursor:
-            cursor.execute('insert into agenda (titre,lieu,description,date,status) values (?,?,?,?,1)',
-                           (title, location, desc, date))
+            cursor.execute(
+                'insert into agenda (titre,lieu,description,date,status) '
+                'values (?,?,?,?,1)',
+                (title, location, desc, date))
 
     def add_sceance(self, date):
         """Adds a seance to the database.
 
-        A seance is a recurring type of event that we can automatically fill using the date as input,
-        using random messages for the description of the event.
+        A seance is a recurring type of event that we can automatically fill
+        using the date as input, using random messages for the description of
+        the event.
 
         """
         self.add_event(
@@ -79,4 +83,6 @@ class AgendaDB:
     def modify_event(self, id, field, new_value):
         """Modifies a specific field of an existing event."""
         with DBGuard(self.db_path) as cursor:
-            cursor.execute('update agenda set {}=? where rowid=?'.format(field), (new_value, id))
+            cursor.execute(
+                'update agenda set {}=? where rowid=?'
+                .format(field), (new_value, id))
