@@ -49,34 +49,40 @@ Adding an event
 Adding a seance
 ---------------
 
-::
+.. code:: python
 
-    'command': 'add_seance',
-    'arguments': {
-        'date': '10/11/2017 17:45'
+    command = {
+        'command': 'add_seance',
+        'arguments': {
+            'date': '10/11/2017 17:45'
+        }
     }
 
 
 Removing an event
 -----------------
 
-::
+.. code:: python
 
-    'command': 'remove',
-    'arguments': {
-        'id': 42
+    command = {
+        'command': 'remove',
+        'arguments': {
+            'id': 42
+        }
     }
 
 Modifying an event
 ------------------
 
-::
+.. code:: python
 
-    'command': 'modify',
-    'arguments': {
-        'id': 42,
-        'field': 'titre',
-        'new_value': 'Un super nouveau titre'
+    command = {
+        'command': 'modify',
+        'arguments': {
+            'id': 42,
+            'field': 'titre',
+            'new_value': 'Un super nouveau titre'
+        }
     }
 
 License
