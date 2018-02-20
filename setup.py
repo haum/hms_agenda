@@ -46,7 +46,7 @@ setup(
         'setuptools_scm'
     ],
 
-    install_requires=['pika', 'hms_base>=2.0,<3', 'coloredlogs'],
+    install_requires=['pika==0.10.0', 'hms_base>=2.0,<3', 'coloredlogs'],
 
     entry_points={
         'console_scripts': [
